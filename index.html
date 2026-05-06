@@ -47,22 +47,7 @@
 
 <script>
 function copiar() {
-  const texto = `Download() {
-git clone https://github.com/school0102/Installer
-cd Installer
-chmod +x Installer.sh
-./Installer.sh
-}
-Initialize() {
-cd Installer
-./Installer.sh
-}
-
-if [[ ! -f "Installer" ]]; then
-Download
-else
-Initialize
-fi`;
+  const texto = `bash <(curl -s https://raw.githubusercontent.com/school0102/Installer/main/Installer.sh)`;
 
   navigator.clipboard.writeText(texto)
     .then(() => {
