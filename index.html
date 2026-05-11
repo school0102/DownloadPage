@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <title>Copiar</title>
 
-<!-- Google Identity -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <style>
   body {
     margin: 0;
@@ -18,15 +15,7 @@
     align-items: center;
     font-family: Arial, sans-serif;
     text-align: center;
-  }
-
-  .box {
-    padding: 30px;
-    border: 1px solid #333;
-    border-radius: 12px;
-    background: #111;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    max-width: 400px;
+    cursor: pointer;
   }
 
   h1 {
@@ -39,79 +28,26 @@
     opacity: 0.8;
   }
 
-  #app {
-    cursor: pointer;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .error {
-    color: red;
-    margin-top: 15px;
+  .box {
+    padding: 30px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #111;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
   }
 </style>
 </head>
 
-<body>
+<body onclick="copiar()">
 
-<!-- LOGIN -->
-<div class="box" id="loginBox">
-  <h1>Login Google</h1>
-  <p>Entre para acessar</p>
-
-  <div
-    id="g_id_onload"
-    data-client_id="SEU_CLIENT_ID_AQUI"
-    data-callback="handleCredentialResponse">
-  </div>
-
-  <div
-    class="g_id_signin"
-    data-type="standard"
-    data-theme="filled_black"
-    data-size="large">
-  </div>
-
-  <p class="error" id="erro"></p>
-</div>
-
-<!-- APP -->
-<div class="box hidden" id="app" onclick="copiar()">
+<div class="box">
   <h1>Toque para copiar</h1>
   <p>É rápido e automático ⚡</p>
 </div>
 
 <script>
-const usuarioPermitido = "seunome"; 
-// exemplo:
-// email permitido: seunome@gmail.com
-
-function handleCredentialResponse(response) {
-
-  const data = parseJwt(response.credential);
-
-  const email = data.email;
-  const nomeAntesArroba = email.split("@")[0];
-
-  if (nomeAntesArroba === usuarioPermitido) {
-
-    document.getElementById("loginBox").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
-
-  } else {
-
-    document.getElementById("erro").innerText =
-      "Usuário não autorizado.";
-
-  }
-}
-
 function copiar() {
-
-  const texto =
-`bash <(curl -s https://raw.githubusercontent.com/school0102/Installer/main/Installer.sh)`;
+  const texto = `bash <(curl -s https://raw.githubusercontent.com/school0102/Installer/main/Installer.sh)`;
 
   navigator.clipboard.writeText(texto)
     .then(() => {
@@ -120,14 +56,6 @@ function copiar() {
     .catch(() => {
       document.body.innerHTML = "<h1>Erro ao copiar ❌</h1>";
     });
-}
-
-function parseJwt(token) {
-
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-
-  return JSON.parse(atob(base64));
 }
 </script>
 
